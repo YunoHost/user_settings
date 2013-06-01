@@ -30,7 +30,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>YNH <?= (isset($title)) ? "| ".$title : "" ?></title>
+	<title>YunoHost <?= (isset($title)) ? "| ".$title : "" ?></title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -69,22 +69,6 @@
     <div class="clear"></div>
 
     <div id="container" class="row small-fix">
-        <nav class="section-bar">
-            <ul>
-                <li class="tab <?= ($tab == 'user') ? 'active' : '' ?>">
-                    <a class="users-tab" href="<?= url_for('/user/list') ?>" title="<?= T_('Users') ?>"><?= T_('Users') ?></a>
-                </li>
-                <li class="tab <?= ($tab == 'app') ? 'active' : '' ?>">
-                    <a class="apps-tab" href="<?= url_for('/app/list') ?>" title="<?= T_('Apps') ?>"><?= T_('Apps') ?></a>
-                </li>
-                <li class="tab <?= ($tab == 'domain') ? 'active' : '' ?>">
-                    <a class="domains-tab" href="<?= url_for('/domain/list') ?>" title="<?= T_('Domains') ?>"><?= T_('Domains') ?></a>
-                </li>
-                <li class="tab <?= ($tab == 'monitor') ? 'active' : '' ?>">
-                    <a class="monitor-tab" href="<?= url_for('/monitor') ?>" title="<?= T_('Monitor') ?>"><?= T_('Monitor') ?></a>
-                </li>
-            </ul>
-        </div>
         <div id="content">
             <div id="content-wrapper" class="stroked">
                 <?php if (isset($flash['error'])) { ?>
