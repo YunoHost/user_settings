@@ -1,4 +1,4 @@
-<?php 
+<?php
 
  /**
   *  YunoHost - Self-hosting for all
@@ -17,176 +17,32 @@
   *  You should have received a copy of the GNU Affero General Public License
   *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
-  
-/**
- * GET /user
- */
-function user() {
-  redirect_to('/user/list');
-}
+
 
 /**
- * GET /user/list
+ * GET /
  */
-function listUser() {
-  global $ldap;
-
-  // Fetch users
-  $ldap->setSearchPath(array('ou' => 'users'));
-  $ldap->setAttributesToFetch(array("mail", "uid", "cn", "dn"));
-  $users = $ldap->findAll('(objectClass=inetOrgPerson)');
-
-  // Fetch admin list
-  $ldap->populateAdmin(array('cn' => 'admin'));
-  $adminsDn = $ldap->getAdminMember();
-
-  set('users', $users);
-  set('adminsDn', $adminsDn);
-  set('title', T_('List users'));        
-  return render("listUser.html.php");
-}
-
-/**
- * GET /user/add
- */
-function addUserForm () {
+function updateUserForm () {
   global $ldap;
   $domains = $ldap->findAll('(objectClass=mailDomain)');
+  $uid = $_SERVER['PHP_AUTH_USER'];
+  $ldap->setSearchPath(array('ou' => 'users'));
+  $ldap->setAttributesToFetch(array('uid', 'cn', 'givenname', 'sn', 'mail'));
+  $user = $ldap->findOneBy(array('uid' => $uid));
   set('domains', $domains);
-  set('title', T_('Add user'));
-  return render("addUserForm.html.php");
-}
-
-/**
- * POST /user/add
- */
-function addUser () {
-  global $ldap;
-
-  $_SESSION['first-install'] = false;
-
-  $ajax = isset($_POST['ajax']);
-
-  $domain = $ajax ? $_SESSION['domain'] : htmlspecialchars($_POST["domain"]);
-  $username = htmlspecialchars($_POST["username"]);
-  $password = '{MD5}'.base64_encode(pack('H*',md5($_POST["password"])));
-  $firstname = htmlspecialchars($_POST["firstname"]);
-  $lastname = htmlspecialchars($_POST["lastname"]);
-  $mail = htmlspecialchars($_POST["mail"]);
-  $admin = isset($_POST["isadmin"]);
-
-  if ($_POST["password"] === $_POST["confirm"]) 
-  {
-    $ldap->setUserUid($username);
-    $ldap->setUserGivenname($firstname);
-    $ldap->setUserSn($lastname);
-    $ldap->setUserMail($mail);
-    $ldap->setUserUserpassword($password);
-    if ($admin) $ldap->setUserDescription('admin');
-
-    if ($ldap->saveUser()) 
-    {
-      if ($admin) $ldap->grantAdmin($username);
-      flash('success', T_('User successfully created.'));
-
-      $welcomeMessage = T_('Welcome aboard! Here is your login and password to connect to your apps.');
-      $welcomeMessage2 = T_('If you want to change your password, click on the link below:');
-
-      $mailMessage = T_('Username:').' '.$username."\n".T_('Password:').' '.$_POST["password"];
-      $htmlMessage = '<img src="http://wiki.yunohost.org/skins/common/images/cloud.png" />'.
-                      '<br />'.
-                      '<p>'.$welcomeMessage.'</p>'.
-                      '<br />'.
-                      '<div><strong>'.T_('Username:').'</strong> '.$username."</div>\n
-                      <div><strong>".T_('Password:').'</strong> '.$_POST["password"].'</div>'.
-                      '<br />'.
-                      '<p>'.$welcomeMessage2.'</p>'.
-                      '<a href="https://auth.'.$domain.'">https://auth.'.$domain.'</a>';
-      sendMail($mail, T_('Your account details'), $mailMessage, $htmlMessage);
-      if ($ajax) return true; 
-      else redirect_to('/user/list');
-    } 
-    else flash('error', T_('An error occured on user creation.'));
-  }
-  else flash('error', T_('Passwords does not match'));
-
-  if ($ajax) return false; 
-  else redirect_to('/user/add');  
+  set('uid', $uid);
+  set('user', $user);
+  set('title', T_('Update').' '.$uid);
+  return render("updateUserForm.html.php");
 }
 
 
 /**
- * GET /user/delete/:user
- */
-function deleteUserForm ($uid = null) {
-  global $ldap;
-  if (isset($uid)) {
-    $username = htmlspecialchars($uid);
-    $ldap->setAttributesToFetch(array('cn', 'mail'));
-    $ldap->setSearchPath(array('ou' => 'users'));
-    if ($user = $ldap->findOneBy(array('uid' => $uid))) {
-      set('username', $uid);
-      set('name', $user['cn']);
-      set('mail', $user['mail']);
-      set('title', T_('Delete').' '.$uid);
-      return render("deleteUserForm.html.php");
-    } else {
-      flash('error', T_('This user doesn\'t exists.'));
-      redirect_to('/user/list');
-    }
-  } else {
-    flash('error', T_('No user set.'));
-    redirect_to('/user/list');
-  }
-}
-
-
-/**
- * DELETE /user/delete
- */
-function deleteUser () {
-  global $ldap;
-  $uid = htmlspecialchars($_POST["user"]);
-  $ldap->populateUser(array('uid' => $uid));
-  if ('admin' === $ldap->getUserDescription())
-    $ldap->revokeAdmin($uid);
-  if ($ldap->deleteUser(array('cn' => $ldap->getUserCn())))
-    flash('success', T_('User successfully deleted.'));
-  else
-    flash('error', T_('An error occured on user deletion.'));
-
-  redirect_to('/user/list');
-}
-
-
-/**
- * GET /user/update/:user
- */
-function updateUserForm ($uid = null) {
-  global $ldap;
-  if (isset($uid)) {
-    $domains = $ldap->findAll('(objectClass=mailDomain)');
-    $uid = htmlspecialchars($uid);
-    $ldap->setSearchPath(array('ou' => 'users'));
-    $ldap->setAttributesToFetch(array('uid', 'cn', 'givenname', 'sn', 'mail', 'description'));
-    $user = $ldap->findOneBy(array('uid' => $uid));
-    set('domains', $domains);
-    set('uid', $uid);
-    set('user', $user);
-    set('title', T_('Update').' '.$uid);
-    return render("updateUserForm.html.php");
-  } else {
-    redirect_to('/user/list');
-  }
-}
-
-
-/**
- * PUT /user/update/:user
+ * PUT /user
  */
 function updateUser ($uid = null) {
   global $ldap;
-  $username = htmlspecialchars($_POST["username"]);
+  $uid = $_SERVER['PHP_AUTH_USER'];
   $firstname = htmlspecialchars($_POST["firstname"]);
   $lastname = htmlspecialchars($_POST["lastname"]);
   $mail = htmlspecialchars($_POST["mail"]);
@@ -196,11 +52,10 @@ function updateUser ($uid = null) {
 
   $wasAdmin = ('admin' === $ldap->user->description);
 
-  $ldap->setUserUid($username);
   $ldap->setUserGivenname($firstname);
   $ldap->setUserSn($lastname);
   $ldap->setUserMail($mail);
-  $ldap->setUserCn($firstname.' '.$lastname);  
+  $ldap->setUserCn($firstname.' '.$lastname);
 
   if ($wasAdmin && !$becomeAdmin) {
     $ldap->setUserDescription('NO MORE admin');
@@ -225,7 +80,7 @@ function updateUser ($uid = null) {
  */
 function updateMailAliasesUserForm ($uid = null) {
   global $ldap;
-  
+
   if (isset($uid)) {
     $uid = htmlspecialchars($uid);
     $ldap->setSearchPath(array('ou' => 'users'));
@@ -307,5 +162,49 @@ function updatePasswordUser ($uid = null) {
     redirect_to('/user/password/'.$uid);
   }
 
-  
+
+}
+
+
+/**
+ * GET /user/delete/:user
+ */
+function deleteUserForm ($uid = null) {
+  global $ldap;
+  if (isset($uid)) {
+    $username = htmlspecialchars($uid);
+    $ldap->setAttributesToFetch(array('cn', 'mail'));
+    $ldap->setSearchPath(array('ou' => 'users'));
+    if ($user = $ldap->findOneBy(array('uid' => $uid))) {
+      set('username', $uid);
+      set('name', $user['cn']);
+      set('mail', $user['mail']);
+      set('title', T_('Delete').' '.$uid);
+      return render("deleteUserForm.html.php");
+    } else {
+      flash('error', T_('This user doesn\'t exists.'));
+      redirect_to('/user/list');
+    }
+  } else {
+    flash('error', T_('No user set.'));
+    redirect_to('/user/list');
+  }
+}
+
+
+/**
+ * DELETE /user/delete
+ */
+function deleteUser () {
+  global $ldap;
+  $uid = htmlspecialchars($_POST["user"]);
+  $ldap->populateUser(array('uid' => $uid));
+  if ('admin' === $ldap->getUserDescription())
+    $ldap->revokeAdmin($uid);
+  if ($ldap->deleteUser(array('cn' => $ldap->getUserCn())))
+    flash('success', T_('User successfully deleted.'));
+  else
+    flash('error', T_('An error occured on user deletion.'));
+
+  redirect_to('/user/list');
 }

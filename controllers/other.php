@@ -1,8 +1,8 @@
-<?php 
+<?php
 
  /**
   *  YunoHost - Self-hosting for all
-  *  Copyright (C) 2012  
+  *  Copyright (C) 2012
   *     Kload <kload@kload.fr>
   *     Guillaume DOTT <github@dott.fr>
   *
@@ -19,7 +19,7 @@
   *  You should have received a copy of the GNU Affero General Public License
   *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
-  
+
 
 /**
  * GET /
@@ -82,46 +82,4 @@ function image_show_jpeg_only() {
 
   if(!file_exists($filename)) halt(NOT_FOUND, "$filename doesn't exists");
   render_file($filename);
-}
-
-/**
- * GET /ping/:vhost
- */
-function ping ($vhost) {
-  switch ($vhost) {
-    case 'public':
-      exec ('ping -c2 -q -w2 '.$_SESSION['mainDomain'], $output, $return_code);
-      break;
-
-    case 'www':
-      exec ('ping -c2 -q -w2 www.'.$_SESSION['mainDomain'], $output, $return_code);
-      break;
-
-    case 'mail':
-      exec ('ping -c2 -q -w2 mail.'.$_SESSION['mainDomain'], $output, $return_code);
-      break;
-
-    case 'apps':
-      exec ('ping -c2 -q -w2 apps.'.$_SESSION['mainDomain'], $output, $return_code);
-      break;
-
-    case 'auth':
-      exec ('ping -c2 -q -w2 auth.'.$_SESSION['mainDomain'], $output, $return_code);
-      break;
-
-    case 'admin':
-      exec ('ping -c2 -q -w2 admin.'.$_SESSION['mainDomain'], $output, $return_code);
-      break;
-
-    default:
-      $ping = 2;
-      break;
-  }
-
-  if ($return_code == 0)
-    header('HTTP/1.0 200 OK');
-  else
-    header('HTTP/1.0 404 Not Found');
-
-  exit;
 }

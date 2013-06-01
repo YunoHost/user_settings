@@ -22,8 +22,19 @@
 /**
  * => controllers/other.php
  */
-dispatch('/', 'home');
 dispatch('/logout', 'logout');
 dispatch('/lang/:locale', 'changeLocale');
-dispatch('/images/:name/:size', 'image_show'); 
+dispatch('/images/:name/:size', 'image_show');
 dispatch('/images/*.jpg/:size', 'image_show_jpeg_only');
+
+/**
+ * => controllers/user.php
+ */
+dispatch('/', 'updateUserForm');
+dispatch_put('/user', 'updateUser');
+dispatch('/mailaliases', 'updateMailAliasesUserForm');
+dispatch_put('/mailaliases', 'updateMailAliasesUser');
+dispatch('/password', 'updatePasswordUserForm');
+dispatch_put('/password', 'updatePasswordUser');
+dispatch('/delete', 'deleteUserForm');
+dispatch_delete('/delete', 'deleteUser');
