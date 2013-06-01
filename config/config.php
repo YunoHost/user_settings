@@ -93,18 +93,6 @@ function before($route)
   set('locale', $_SESSION['locale']);
 
   /**
-   * Authenticate
-   */
-  function authenticate() {
-    if(isset($_SESSION['isConnected'])) unset($_SESSION['isConnected']);
-    header('WWW-Authenticate: Basic realm="'.T_('Username / password').'"');
-    header('HTTP/1.0 401 Unauthorized');
-    header('Content-Type: text/html; charset=UTF-8');
-    echo T_('You must identify yourself to access to this page.');
-    exit;
-  }
-
-  /**
    * Proceed routing
    */
   function continueRouting($route) {
@@ -137,9 +125,9 @@ function before($route)
     if ($ldap->connectAs($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true)) {
       continueRouting($route);
     } else {
-      authenticate();
+      echo 'yayaya'; die;
     }
-  } else authenticate();
+  } else die('yayaya');
 }
 
 
