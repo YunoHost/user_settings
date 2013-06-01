@@ -24,4 +24,5 @@ require dirname(__FILE__).'/vendor/ldapOrm.php';
 require '/usr/share/php/php-gettext/gettext.inc';
 require dirname(__FILE__).'/config/config.php';
 
+
 run();
