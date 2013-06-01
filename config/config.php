@@ -54,7 +54,6 @@ function not_found($errno, $errstr, $errfile=null, $errline=null)
 
 function before($route)
 {
-  global $config;
   global $ldap;
 
   /**
@@ -66,7 +65,7 @@ function before($route)
     $_SESSION['domain'] = 'yunohost.org';
   }
 
-  $ldap = new YunohostLdap('localhost', $_SESSION['domain'], dirname(__FILE__).'/../models');
+  $ldap = new LdapEntry('localhost', $_SESSION['domain'], dirname(__FILE__).'/../models');
 
 
   /**
@@ -122,7 +121,7 @@ function before($route)
    * Check authentcation
    */
   if (isset($_SERVER['PHP_AUTH_USER'])) {
-    if ($ldap->connectAs($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
+    if ($ldap->connect(array('uid' => $_SERVER['PHP_AUTH_USER'], 'ou' => 'users'), $_SERVER['PHP_AUTH_PW'])) {
       continueRouting($route);
     } else {
      echo $_SERVER['PHP_AUTH_USER'].' '.$_SERVER['PHP_AUTH_PW']; die;

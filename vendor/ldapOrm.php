@@ -6,14 +6,14 @@
 
 /**
  *  LDAPORM - an LDAP micro ORM.
- * 
+ *
  *  For more informations: {@link http://github.com/kloadut/ldaporm}
- *  
+ *
  *  @author Alexis Gavoty <alexis@gavoty.fr>
  *  @license MPLv2 http://www.mozilla.org/MPL/2.0/
  *  @package yunohost
  */
- 
+
 
 # ============================================================================ #
 #    LDAP CONNECTION FUNCTIONS COLLECTION                                      #
@@ -36,10 +36,10 @@ class LdapConnection
    * Contructor that set the connection to the server and store domain
    *
    * @access public
-   * @param string $server 
+   * @param string $server
    * @param string $domain
    */
-  public function __construct($server, $domain) 
+  public function __construct($server, $domain)
   {
     $this->connection = ldap_connect($server);
     ldap_set_option($this->connection, LDAP_OPT_PROTOCOL_VERSION, $this->protocolVersion);
@@ -53,7 +53,7 @@ class LdapConnection
    * @access public
    * @param int $newProtocolVersion 2 | 3
    */
-  public function setProtocolVersion($newProtocolVersion) 
+  public function setProtocolVersion($newProtocolVersion)
   {
     if ( $this->connection ) {
       $this->protocolVersion = $newProtocolVersion;
@@ -65,11 +65,11 @@ class LdapConnection
    * Bind to LDAP with an account
    *
    * @access public
-   * @param string $userDnArray 
+   * @param string $userDnArray
    * @param string $password
    * @return boolean
    */
-  public function connect($userDnArray, $password) 
+  public function connect($userDnArray, $password)
   {
     if ( $this->connection )
       return ldap_bind( $this->connection, $this->arrayToDn($userDnArray).$this->baseDn, $password);
@@ -93,10 +93,10 @@ class LdapConnection
    * Throw or return LDAP error
    *
    * @access protected
-   * @param boolean $throw 
+   * @param boolean $throw
    * @return exception|string
    */
-  protected function ldapError($throw = true) 
+  protected function ldapError($throw = true)
   {
     $error = 'Error: ('. ldap_errno($this->connection) .') '. ldap_error($this->connection);
     if ($throw) throw new Exception($error);
@@ -107,18 +107,18 @@ class LdapConnection
    * Ldapify an array of attributes
    *
    * @access protected
-   * @param array $array 
+   * @param array $array
    * @return string
    */
-  protected function arrayToDn($array, $trailingComma = true) 
+  protected function arrayToDn($array, $trailingComma = true)
   {
     $result = '';
-    if (!empty($array)) 
+    if (!empty($array))
     {
       $i = 0;
-      foreach ($array as $prefix => $value) 
+      foreach ($array as $prefix => $value)
       {
-        if ($i == 0) $result .= $prefix.'='.$value; 
+        if ($i == 0) $result .= $prefix.'='.$value;
         else $result .= ','.$prefix.'='.$value;
         $i++;
       }
@@ -149,16 +149,16 @@ class LdapEntry extends LdapConnection
    * Contructor that set the connection and import model
    *
    * @access public
-   * @param string $server 
+   * @param string $server
    * @param string $domain
    * @param string $modelPath - Absolute path to the model directory
    */
-  public function __construct($server, $domain, $modelPath) 
+  public function __construct($server, $domain, $modelPath)
   {
     parent::__construct($server, $domain);
     if ($handle = opendir($modelPath)) // Import models
     {
-      while (false !== ($entry = readdir($handle))) 
+      while (false !== ($entry = readdir($handle)))
       {
           if ($entry != '..' && $entry != '.')
           {
@@ -173,12 +173,12 @@ class LdapEntry extends LdapConnection
             $this->$entry->baseDn       = $this->baseDn;
             $this->$entry->baseDomain   = $this->baseDomain;
 
-            foreach ($this->$entry->options as $option => $value) 
+            foreach ($this->$entry->options as $option => $value)
             {
               $this->$entry->$option = $value;
             }
 
-            foreach ($this->$entry->fields as $attribute => $value) 
+            foreach ($this->$entry->fields as $attribute => $value)
             {
               $this->$entry->$attribute = ''; // Erk
               $this->$entry->attributesToFetch[] = $attribute;
@@ -197,20 +197,20 @@ class LdapEntry extends LdapConnection
    * @param string $method - The undeclared method
    * @param array $arguments - Arguments passed to this undeclared method
    */
-  public function __call($method, $arguments) 
+  public function __call($method, $arguments)
   {
     // Get
-    if ($result = $this->getModelAndAttributeFromMethod('get', $method)) 
+    if ($result = $this->getModelAndAttributeFromMethod('get', $method))
       return $this->$result['model']->$result['attr'];
-    
+
     // Set
     if ($result = $this->getModelAndAttributeFromMethod('set', $method))
       $this->$result['model']->$result['attr'] = $arguments[0];
-    
+
     // Save
     if ($model = $this->getModelFromMethod('save', $method))
       return $this->save($model);
-    
+
     // Populate
     if ($model = $this->getModelFromMethod('populate', $method))
       return $this->populate($model, $arguments[0]);
@@ -225,11 +225,11 @@ class LdapEntry extends LdapConnection
     // Validate uniqueness
     if ($result = $this->getModelAndAttributeFromMethod('validateUniquenessOf', $method))
       return $this->validateUniquenessOf($result['attr'], $result['model']);
-    
+
     // Validate length
     if ($result = $this->getModelAndAttributeFromMethod('validateLengthOf', $method))
       return $this->validateLengthOf($result['attr'], $result['model'], $arguments[0], $arguments[1]);
-    
+
     // Validate format
     if ($result = $this->getModelAndAttributeFromMethod('validateFormatOf', $method))
       return $this->validateFormatOf($result['attr'], $result['model'], $arguments[0]);
@@ -281,7 +281,7 @@ class LdapEntry extends LdapConnection
    * @access public
    * @param $string $newSearchFilter
    */
-  public function setSearchFilter($newSearchFilter) 
+  public function setSearchFilter($newSearchFilter)
   {
     $this->searchFilter = $newSearchFilter;
   }
@@ -303,7 +303,7 @@ class LdapEntry extends LdapConnection
    * @access public
    * @param array $newAttributesArray
    */
-  public function setAttributesToFetch($newAttributesArray) 
+  public function setAttributesToFetch($newAttributesArray)
   {
     $this->attributesToFetch = $newAttributesArray;
   }
@@ -315,15 +315,15 @@ class LdapEntry extends LdapConnection
    * @param string $model - The model name
    * @param array $attributeArray - The attribute key with its value
    */
-  public function populate($model, $attributeArray) 
+  public function populate($model, $attributeArray)
   {
     $result = $this->$model->findOneBy($attributeArray);
 
-    foreach ($result as $attribute => $attrValue) 
+    foreach ($result as $attribute => $attrValue)
     {
       $this->$model->$attribute = $attrValue;
     }
-    
+
     foreach ($this->$model->options['dnPattern'] as $patternKey => $patternValue) {
       if (array_key_exists($patternKey, $result))
         $this->$model->actualDn[$patternKey] = $result[$patternKey];
@@ -341,22 +341,22 @@ class LdapEntry extends LdapConnection
    * @param boolean $toArray
    * @return array|boolean - Filtered array by default, multidimensionnal array, or false
    */
-  public function findAll($pattern = null, $toArray = true) 
+  public function findAll($pattern = null, $toArray = true)
   {
     if (empty($pattern)) $pattern = $this->searchFilter;
 
     $result = ldap_search
               (
-                  $this->connection, 
-                  $this->baseDn, 
+                  $this->connection,
+                  $this->baseDn,
                   $pattern
               );
 
-    if ($result) 
+    if ($result)
     {
       if ($toArray) return $this->entriesToArray($result);
       else return ldap_get_entries($this->connection, $result);
-    } 
+    }
     else return false;
   }
 
@@ -369,21 +369,21 @@ class LdapEntry extends LdapConnection
    * @return array|boolean - Filtered array by default, multidimensionnal array, or false
    * @see findAll()
    */
-  public function first($pattern, $toArray = true) 
+  public function first($pattern, $toArray = true)
   {
     $result = ldap_search
               (
-                  $this->connection, 
-                  $this->arrayToDn($this->searchPath).$this->baseDn, 
-                  $pattern, 
+                  $this->connection,
+                  $this->arrayToDn($this->searchPath).$this->baseDn,
+                  $pattern,
                   $this->attributesToFetch
               );
 
-    if ($result) 
+    if ($result)
     {
       if ($toArray) return $this->entryToArray($result);
       else return ldap_get_entries($this->connection, $result);
-    } 
+    }
     else return false;
   }
 
@@ -395,21 +395,21 @@ class LdapEntry extends LdapConnection
    * @param boolean $toArray
    * @return array|boolean - Filtered array by default, multidimensionnal array, or false
    */
-  public function findOneBy($attributeArray, $toArray = true) 
+  public function findOneBy($attributeArray, $toArray = true)
   {
     $result = ldap_search
               (
-                  $this->connection, 
-                  $this->arrayToDn($this->searchPath).$this->baseDn, 
-                  "(".$this->arrayToDn($attributeArray, false).")", 
+                  $this->connection,
+                  $this->arrayToDn($this->searchPath).$this->baseDn,
+                  "(".$this->arrayToDn($attributeArray, false).")",
                   $this->attributesToFetch
               );
 
-    if ($result) 
+    if ($result)
     {
       if ($toArray) return $this->entryToArray($result);
       else return ldap_get_entries($this->connection, $result);
-    } 
+    }
     else return false;
   }
 
@@ -420,7 +420,7 @@ class LdapEntry extends LdapConnection
    * @param string $model - The model name
    * @return boolean - Fail | Win
    */
-  public function save($model) 
+  public function save($model)
   {
     $this->$model->beforeSave();
 
@@ -435,12 +435,12 @@ class LdapEntry extends LdapConnection
       $objectArray[$attribute] = $this->$model->$attribute;
     }
 
-    if ($this->validate($model)) 
+    if ($this->validate($model))
     {
       if (isset($this->$model->actualDn))
         return $this->update($objectArray);
-      else 
-        return $this->create($objectArray);   
+      else
+        return $this->create($objectArray);
 
       $this->$model->afterSave();
 
@@ -460,7 +460,7 @@ class LdapEntry extends LdapConnection
    * @param array $attributesArray
    * @return exception - If it fails to add
    */
-  public function create($attributesArray) 
+  public function create($attributesArray)
   {
     if (is_array($attributesArray['newDn']))
       $attributesArray['newDn'] = $this->arrayToDn($attributesArray['newDn']).$this->baseDn;
@@ -480,11 +480,11 @@ class LdapEntry extends LdapConnection
    * @param array $attributesArray
    * @return exception - If it fails to modify
    */
-  public function update($attributesArray) 
+  public function update($attributesArray)
   {
     $modEntry = $this->attributesArrayFilter($attributesArray);
 
-    if (ldap_rename($this->connection, $attributesArray['actualDn'], $attributesArray['newRdn'], null, true)) 
+    if (ldap_rename($this->connection, $attributesArray['actualDn'], $attributesArray['newRdn'], null, true))
     {
       if (!ldap_mod_replace($this->connection, $attributesArray['newDn'], $modEntry))
         $this->ldapError();
@@ -501,7 +501,7 @@ class LdapEntry extends LdapConnection
    * @param string $dn
    * @return exception - If it fails to delete
    */
-  public function delete($dn) 
+  public function delete($dn)
   {
     if (!ldap_delete($this->connection, $dn))
       $this->ldapError();
@@ -516,20 +516,20 @@ class LdapEntry extends LdapConnection
    * @param array $attributesArray
    * @return array - The filtered array
    */
-  protected function attributesArrayFilter($attributesArray) 
+  protected function attributesArrayFilter($attributesArray)
   {
-    foreach ($attributesArray as $attr => $value) 
+    foreach ($attributesArray as $attr => $value)
     {
-      if ('actualDn' == $attr || 'newRdn' == $attr || 'newDn' == $attr) 
+      if ('actualDn' == $attr || 'newRdn' == $attr || 'newDn' == $attr)
           unset($attributesArray[$attr]);
-      elseif (is_array($value)) 
+      elseif (is_array($value))
       {
-        foreach ($value as $subvalue) 
+        foreach ($value as $subvalue)
           $entry[$attr][] = $subvalue;
-      } 
+      }
       else $entry[$attr] = $value;
 
-      if (empty($value)) 
+      if (empty($value))
       {
         unset($entry[$attr]);
       }
@@ -542,23 +542,23 @@ class LdapEntry extends LdapConnection
    * Get a workable array instead of the insane result of ldap_get_entries()
    *
    * @access protected
-   * @param array $result - The ldap_search() result 
+   * @param array $result - The ldap_search() result
    * @return array - Pimped array
    */
-  protected function entriesToArray($result) 
+  protected function entriesToArray($result)
   {
     $resultArray = array();
     $entry = ldap_first_entry($this->connection, $result);
-    while ($entry) 
+    while ($entry)
     {
       $row = array();
       $attr = ldap_first_attribute($this->connection, $entry);
-      while ($attr) 
+      while ($attr)
       {
         $val = ldap_get_values_len($this->connection, $entry, $attr);
         if (array_key_exists('count', $val) AND $val['count'] == 1)
           $row[strtolower($attr)] = $val[0];
-        else 
+        else
         {
           unset($val['count']);
           $row[strtolower($attr)] = $val;
@@ -576,21 +576,21 @@ class LdapEntry extends LdapConnection
    * Get a workable array for a single entry
    *
    * @access protected
-   * @param array $result - The ldap_search() result 
+   * @param array $result - The ldap_search() result
    * @return array - Simplified array
    */
-  protected function entryToArray($result) 
+  protected function entryToArray($result)
   {
     $resultArray = array();
     if($entry = ldap_first_entry($this->connection, $result))
     {
       $attr = ldap_first_attribute($this->connection, $entry);
-      while ($attr) 
+      while ($attr)
       {
         $val = ldap_get_values_len($this->connection, $entry, $attr);
         if (array_key_exists('count', $val) AND $val['count'] == 1)
           $resultArray[strtolower($attr)] = $val[0];
-        else 
+        else
         {
           unset($val['count']);
           $resultArray[strtolower($attr)] = $val;
@@ -599,7 +599,7 @@ class LdapEntry extends LdapConnection
 
         $attr = ldap_next_attribute($this->connection, $entry);
       }
-        
+
       return $resultArray;
       } else return array();
   }
@@ -611,7 +611,7 @@ class LdapEntry extends LdapConnection
    * @param string $model - The model name
    * @return boolean
    */
-  protected function validate($model) 
+  protected function validate($model)
   {
     foreach ($this->$model->fields as $attribute => $validationArray) {
       if (isset($validationArray['required']) && $validationArray['required'] == true)
@@ -619,7 +619,7 @@ class LdapEntry extends LdapConnection
         if (!$this->validatePresenceOf($attribute, $model))
           return false;
 
-        if (isset($validationArray['minLength'])) 
+        if (isset($validationArray['minLength']))
         {
           if (!$this->validateLengthOf($attribute, $model, $validationArray['minLength']))
             return false;
@@ -635,7 +635,7 @@ class LdapEntry extends LdapConnection
             return false;
         }
       }
-      if (isset($validationArray['unique']) && $validationArray['unique'] == true) 
+      if (isset($validationArray['unique']) && $validationArray['unique'] == true)
       {
         if (!$this->validateUniquenessOf($attribute, $model))
           return false;
@@ -652,7 +652,7 @@ class LdapEntry extends LdapConnection
    * @param string $model
    * @return boolean
    */
-  protected function validatePresenceOf($attribute, $model) 
+  protected function validatePresenceOf($attribute, $model)
   {
     return !empty($this->$model->$attribute);
   }
@@ -665,15 +665,15 @@ class LdapEntry extends LdapConnection
    * @param string $model
    * @return boolean
    */
-  protected function validateUniquenessOf($attribute, $model) 
+  protected function validateUniquenessOf($attribute, $model)
   {
     if ($attribute === 'cn')
       return true;
-         
+
     $alreadyExists = $this->findOneBy(array($attribute => $this->$model->$attribute));
     if (!empty($alreadyExists))
       return 'cn='.$alreadyExists['cn'] === $this->arrayToDn($this->$model->actualDn, false);
-      
+
     else return true;
   }
 
@@ -687,15 +687,15 @@ class LdapEntry extends LdapConnection
    * @param int $maxLength
    * @return boolean
    */
-  protected function validateLengthOf($attribute, $model, $minLength = 0, $maxLength = 1024) 
+  protected function validateLengthOf($attribute, $model, $minLength = 0, $maxLength = 1024)
   {
     if (is_array($this->$model->$attribute))
     {
-      foreach ($this->$model->$attribute as $value) 
+      foreach ($this->$model->$attribute as $value)
       {
         if (strlen($value) <= $maxLength && strlen($value) >= $minLength) continue;
         else return false;
-          
+
       }
       return true;
     }
@@ -711,11 +711,11 @@ class LdapEntry extends LdapConnection
    * @param string $regex
    * @return boolean
    */
-  protected function validateFormatOf($attribute, $model, $regex) 
+  protected function validateFormatOf($attribute, $model, $regex)
   {
     if (is_array($this->$model->$attribute))
     {
-      foreach ($this->$model->$attribute as $value) 
+      foreach ($this->$model->$attribute as $value)
       {
         if (preg_match($regex, $value)) continue;
         else return false;
@@ -724,6 +724,6 @@ class LdapEntry extends LdapConnection
     }
     else return preg_match($regex, $this->$model->$attribute);
   }
-  
+
 }
 
