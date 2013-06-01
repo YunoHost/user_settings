@@ -1,0 +1,722 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-02 16:11+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: controllers/user.php:45
+msgid "List users"
+msgstr ""
+
+#: controllers/user.php:56
+msgid "Add user"
+msgstr ""
+
+#: controllers/user.php:90
+msgid "User successfully created."
+msgstr ""
+
+#: controllers/user.php:92
+msgid "Welcome aboard! Here is your login and password to connect to your apps."
+msgstr ""
+
+#: controllers/user.php:93
+msgid "If you want to change your password, click on the link below:"
+msgstr ""
+
+#: controllers/user.php:95 controllers/user.php:100
+msgid "Username:"
+msgstr ""
+
+#: controllers/user.php:95 controllers/user.php:101
+msgid "Password:"
+msgstr ""
+
+#: controllers/user.php:105
+msgid "Your account details"
+msgstr ""
+
+#: controllers/user.php:109
+msgid "An error occured on user creation."
+msgstr ""
+
+#: controllers/user.php:111
+msgid "Passwords does not match"
+msgstr ""
+
+#: controllers/user.php:131 views/listUser.html.php:43
+#: views/deleteUserForm.html.php:31
+msgid "Delete"
+msgstr ""
+
+#: controllers/user.php:134
+msgid "This user doesn't exists."
+msgstr ""
+
+#: controllers/user.php:138
+msgid "No user set."
+msgstr ""
+
+#: controllers/user.php:154
+msgid "User successfully deleted."
+msgstr ""
+
+#: controllers/user.php:156
+msgid "An error occured on user deletion."
+msgstr ""
+
+#: controllers/user.php:176 views/updateUserForm.html.php:76
+#: views/listApps.html.php:45
+msgid "Update"
+msgstr ""
+
+#: controllers/user.php:216
+msgid "User successfully updated."
+msgstr ""
+
+#: controllers/user.php:218
+msgid "An error occured on user update."
+msgstr ""
+
+#: controllers/user.php:238
+msgid "Mail aliases of"
+msgstr ""
+
+#: controllers/user.php:261
+msgid "Mail aliases updated."
+msgstr ""
+
+#: controllers/user.php:263
+msgid "An error occured on aliases update."
+msgstr ""
+
+#: controllers/user.php:277
+msgid "Change password of"
+msgstr ""
+
+#: controllers/user.php:300
+msgid "Password changed."
+msgstr ""
+
+#: controllers/user.php:302
+msgid "An error occured on password update."
+msgstr ""
+
+#: controllers/user.php:306
+msgid "Actual password doesn't match"
+msgstr ""
+
+#: controllers/app.php:69
+msgid "List of applications"
+msgstr ""
+
+#: controllers/app.php:82 controllers/app.php:116
+msgid "Invalid operation"
+msgstr ""
+
+#: controllers/app.php:84 controllers/app.php:99
+msgid "Undefined operation."
+msgstr ""
+
+#: controllers/tools.php:27 controllers/tools.php:82
+msgid "Undefined service."
+msgstr ""
+
+#: controllers/tools.php:85
+msgid "Undefined log file"
+msgstr ""
+
+#: controllers/tools.php:92
+msgid "Log reader"
+msgstr ""
+
+#: controllers/tools.php:105
+msgid "Chat"
+msgstr ""
+
+#: controllers/tools.php:115
+msgid "The support chat has been enabled."
+msgstr ""
+
+#: controllers/tools.php:126
+msgid "The support chat has been disabled."
+msgstr ""
+
+#: controllers/tools.php:199 views/layout.html.php:76
+msgid "System monitor"
+msgstr ""
+
+#: controllers/tools.php:217
+msgid "Tasks manager"
+msgstr ""
+
+#: controllers/tools.php:230 controllers/tools.php:233
+msgid "You have updates on your system"
+msgstr ""
+
+#: controllers/tools.php:236 controllers/tools.php:238
+#: views/upgradeConfirm.html.php:27 views/layout.html.php:86
+msgid "Your system is up-to-date"
+msgstr ""
+
+#: controllers/tools.php:265 views/homepage.html.php:33
+msgid "System upgrade"
+msgstr ""
+
+#: controllers/tools.php:292
+msgid "successfully enabled."
+msgstr ""
+
+#: controllers/tools.php:295 controllers/tools.php:310
+msgid "Invalid service name."
+msgstr ""
+
+#: controllers/tools.php:307
+msgid "successfully disabled."
+msgstr ""
+
+#: controllers/other.php:29
+msgid "Welcome !"
+msgstr ""
+
+#: controllers/domain.php:38
+msgid "List of domains"
+msgstr ""
+
+#: controllers/domain.php:73
+msgid "You must enter at least one domain."
+msgstr ""
+
+#: controllers/domain.php:75
+msgid "A problem occured on domain operations."
+msgstr ""
+
+#: controllers/domain.php:76
+msgid "Domains successfully updated."
+msgstr ""
+
+#: controllers/domain.php:89 views/changeMainDomain.html.php:26
+#: views/listDomains.html.php:52
+msgid "Change main domain"
+msgstr ""
+
+#: controllers/domain.php:100
+msgid "Main domain successfully changed."
+msgstr ""
+
+#: views/passwordUserForm.html.php:26 views/updateUserForm.html.php:65
+msgid "Change password"
+msgstr ""
+
+#: views/passwordUserForm.html.php:29 views/changeMainDomain.html.php:29
+msgid "Actual"
+msgstr ""
+
+#: views/passwordUserForm.html.php:30
+msgid "Actual password"
+msgstr ""
+
+#: views/passwordUserForm.html.php:33 views/changeMainDomain.html.php:32
+msgid "New"
+msgstr ""
+
+#: views/passwordUserForm.html.php:34 views/passwordUserForm.html.php:38
+msgid "New password"
+msgstr ""
+
+#: views/passwordUserForm.html.php:37
+msgid "Retype new"
+msgstr ""
+
+#: views/passwordUserForm.html.php:43 views/updateUserForm.html.php:73
+#: views/addUserForm.html.php:68
+msgid "required fields"
+msgstr ""
+
+#: views/passwordUserForm.html.php:46 views/mailAliasesUserForm.html.php:50
+#: views/changeMainDomain.html.php:44 views/listDomains.html.php:58
+msgid "Save"
+msgstr ""
+
+#: views/mailAliasesUserForm.html.php:26 views/updateUserForm.html.php:62
+msgid "Mail aliases"
+msgstr ""
+
+#: views/mailAliasesUserForm.html.php:29
+msgid "Main address"
+msgstr ""
+
+#: views/mailAliasesUserForm.html.php:33 views/mailAliasesUserForm.html.php:39
+msgid "Alias"
+msgstr ""
+
+#: views/mailAliasesUserForm.html.php:34
+msgid "New mail alias"
+msgstr ""
+
+#: views/mailAliasesUserForm.html.php:45
+msgid "Add an alias"
+msgstr ""
+
+#: views/error_layout.html.php:26
+msgid "Page Not Found :("
+msgstr ""
+
+#: views/error_layout.html.php:44
+msgid "Not found <span>:(</span>"
+msgstr ""
+
+#: views/error_layout.html.php:47
+msgid "Sorry, but the page you were trying to view does not exist."
+msgstr ""
+
+#: views/error_layout.html.php:48
+msgid "It looks like this was the result of either:"
+msgstr ""
+
+#: views/error_layout.html.php:50
+msgid "a mistyped address"
+msgstr ""
+
+#: views/error_layout.html.php:51
+msgid "an out-of-date link"
+msgstr ""
+
+#: views/error_layout.html.php:54
+msgid "Details:"
+msgstr ""
+
+#: views/updateUserForm.html.php:27 views/addUserForm.html.php:25
+msgid "User informations"
+msgstr ""
+
+#: views/updateUserForm.html.php:30 views/welcomePopUp.html.php:50
+#: views/addUserForm.html.php:28 views/listDomains.html.php:33
+#: views/listDomains.html.php:40
+msgid "Domain"
+msgstr ""
+
+#: views/updateUserForm.html.php:38 views/welcomePopUp.html.php:57
+#: views/addUserForm.html.php:36
+msgid "Username"
+msgstr ""
+
+#: views/updateUserForm.html.php:42 views/welcomePopUp.html.php:69
+#: views/addUserForm.html.php:48
+msgid "Firstname"
+msgstr ""
+
+#: views/updateUserForm.html.php:46 views/welcomePopUp.html.php:73
+#: views/addUserForm.html.php:52
+msgid "Lastname"
+msgstr ""
+
+#: views/updateUserForm.html.php:50 views/welcomePopUp.html.php:77
+#: views/deleteUserForm.html.php:29 views/addUserForm.html.php:56
+msgid "Mail"
+msgstr ""
+
+#: views/updateUserForm.html.php:55 views/addUserForm.html.php:61
+msgid "Administrator"
+msgstr ""
+
+#: views/systemMonitor.html.php:25
+msgid "Monitoring"
+msgstr ""
+
+#: views/systemMonitor.html.php:28
+msgid "CPU"
+msgstr ""
+
+#: views/systemMonitor.html.php:34
+msgid "Memory"
+msgstr ""
+
+#: views/systemMonitor.html.php:40
+msgid "Swap"
+msgstr ""
+
+#: views/systemMonitor.html.php:46
+msgid "Tasks"
+msgstr ""
+
+#: views/systemMonitor.html.php:53
+msgid "Network"
+msgstr ""
+
+#: views/systemMonitor.html.php:56
+msgid "Local IP"
+msgstr ""
+
+#: views/systemMonitor.html.php:61
+msgid "Global IP"
+msgstr ""
+
+#: views/systemMonitor.html.php:66
+msgid "MAC address"
+msgstr ""
+
+#: views/systemMonitor.html.php:87
+msgid "Log"
+msgstr ""
+
+#: views/systemMonitor.html.php:90
+msgid "Activate"
+msgstr ""
+
+#: views/systemMonitor.html.php:92
+msgid "Deactivate"
+msgstr ""
+
+#: views/listUser.html.php:35 views/listUser.html.php:42
+msgid "Edit"
+msgstr ""
+
+#: views/listUser.html.php:51
+msgid "New user"
+msgstr ""
+
+#: views/welcomePopUp.html.php:24
+msgid "Congratulations !"
+msgstr ""
+
+#: views/welcomePopUp.html.php:29
+msgid "Introduction"
+msgstr ""
+
+#: views/welcomePopUp.html.php:30
+msgid "First user"
+msgstr ""
+
+#: views/welcomePopUp.html.php:31
+msgid "DNS"
+msgstr ""
+
+#: views/welcomePopUp.html.php:32
+msgid "Router"
+msgstr ""
+
+#: views/welcomePopUp.html.php:33
+msgid "Help ?"
+msgstr ""
+
+#: views/welcomePopUp.html.php:37
+msgid "YunoHost has been successfully installed :-)"
+msgstr ""
+
+#: views/welcomePopUp.html.php:39
+msgid "Now you have to complete the 3 steps above, and you will be ready to go!"
+msgstr ""
+
+#: views/welcomePopUp.html.php:42 views/welcomePopUp.html.php:84
+#: views/welcomePopUp.html.php:110 views/welcomePopUp.html.php:129
+msgid "Next"
+msgstr ""
+
+#: views/welcomePopUp.html.php:46
+msgid "Please create the first user"
+msgstr ""
+
+#: views/welcomePopUp.html.php:61 views/addUserForm.html.php:40
+msgid "Password"
+msgstr ""
+
+#: views/welcomePopUp.html.php:65 views/addUserForm.html.php:44
+msgid "Confirm password"
+msgstr ""
+
+#: views/welcomePopUp.html.php:80
+msgid "Save user"
+msgstr ""
+
+#: views/welcomePopUp.html.php:83 views/welcomePopUp.html.php:109
+#: views/welcomePopUp.html.php:128 views/welcomePopUp.html.php:142
+msgid "Previous"
+msgstr ""
+
+#: views/welcomePopUp.html.php:89
+msgid "Configure your DNS entries like this:"
+msgstr ""
+
+#: views/welcomePopUp.html.php:93 views/welcomePopUp.html.php:95
+#: views/welcomePopUp.html.php:97 views/welcomePopUp.html.php:99
+#: views/welcomePopUp.html.php:101 views/welcomePopUp.html.php:103
+#: views/welcomePopUp.html.php:105
+msgid "type"
+msgstr ""
+
+#: views/welcomePopUp.html.php:105
+msgid "priority"
+msgstr ""
+
+#: views/welcomePopUp.html.php:107 views/welcomePopUp.html.php:126
+msgid "How to ?"
+msgstr ""
+
+#: views/welcomePopUp.html.php:114
+msgid "Configure your router"
+msgstr ""
+
+#: views/welcomePopUp.html.php:118
+msgid "If you have any router (or box) to access the Internet, you have to follow these steps:"
+msgstr ""
+
+#: views/welcomePopUp.html.php:120
+#, php-format
+msgid "Fix your IP address (%s), to your MAC address (%s)"
+msgstr ""
+
+#: views/welcomePopUp.html.php:121
+msgid "Open and redirect following ports to this IP address"
+msgstr ""
+
+#: views/welcomePopUp.html.php:123
+msgid "Deactivate SMTP lock if it is set"
+msgstr ""
+
+#: views/welcomePopUp.html.php:133
+msgid "Don't worry, you will be able to reproduce these steps later."
+msgstr ""
+
+#: views/welcomePopUp.html.php:135
+msgid "If you want to go further, do not hesitate to:"
+msgstr ""
+
+#: views/welcomePopUp.html.php:137
+msgid "Read the documentation"
+msgstr ""
+
+#: views/welcomePopUp.html.php:138 views/homepage.html.php:65
+msgid "Import certificate authority"
+msgstr ""
+
+#: views/welcomePopUp.html.php:138 views/homepage.html.php:65
+msgid "Need help ?"
+msgstr ""
+
+#: views/welcomePopUp.html.php:139
+msgid "Activate the support chat to ask us"
+msgstr ""
+
+#: views/welcomePopUp.html.php:143
+msgid "Finish"
+msgstr ""
+
+#: views/upgradeConfirm.html.php:25 views/layout.html.php:78
+msgid "Upgrade system"
+msgstr ""
+
+#: views/upgradeConfirm.html.php:32
+#, php-format
+msgid "You have %s packages to upgrade."
+msgstr ""
+
+#: views/upgradeConfirm.html.php:39 views/layout.html.php:88
+msgid "Upgrade"
+msgstr ""
+
+#: views/deleteUserForm.html.php:26
+#, php-format
+msgid "Do you really want to delete %s ?"
+msgstr ""
+
+#: views/deleteUserForm.html.php:28
+msgid "Name"
+msgstr ""
+
+#: views/layout.html.php:62 views/layout.html.php:112
+msgid "Users"
+msgstr ""
+
+#: views/layout.html.php:65 views/layout.html.php:113
+#: views/listDomains.html.php:30
+msgid "Domains"
+msgstr ""
+
+#: views/layout.html.php:68 views/layout.html.php:114
+#: views/homepage.html.php:47
+msgid "Applications"
+msgstr ""
+
+#: views/layout.html.php:72 views/layout.html.php:115
+msgid "Tools"
+msgstr ""
+
+#: views/layout.html.php:77
+msgid "Support chat"
+msgstr ""
+
+#: views/layout.html.php:84
+msgid "Check upgrades"
+msgstr ""
+
+#: views/layout.html.php:93
+msgid "Log out"
+msgstr ""
+
+#: views/layout.html.php:111
+msgid "Home"
+msgstr ""
+
+#: views/layout.html.php:125
+msgid "Error"
+msgstr ""
+
+#: views/layout.html.php:130
+msgid "Notice"
+msgstr ""
+
+#: views/layout.html.php:143
+msgid "Powered by"
+msgstr ""
+
+#: views/layout.html.php:145
+msgid "Lang"
+msgstr ""
+
+#: views/layout.html.php:150
+msgid "English"
+msgstr ""
+
+#: views/layout.html.php:151
+msgid "French"
+msgstr ""
+
+#: views/layout.html.php:163
+msgid "Showing _START_ to _END_ of _TOTAL_"
+msgstr ""
+
+#: views/layout.html.php:164
+msgid "(filtered from _MAX_ total entries)"
+msgstr ""
+
+#: views/appOperation.html.php:25
+msgid "Success !"
+msgstr ""
+
+#: views/appOperation.html.php:26
+msgid "Failed !"
+msgstr ""
+
+#: views/appOperation.html.php:28
+msgid "Back"
+msgstr ""
+
+#: views/addUserForm.html.php:71
+msgid "Create"
+msgstr ""
+
+#: views/listApps.html.php:47 views/listApps.html.php:62
+msgid "Uninstall"
+msgstr ""
+
+#: views/listApps.html.php:49 views/listApps.html.php:61
+msgid "Install"
+msgstr ""
+
+#: views/listApps.html.php:67
+#, php-format
+msgid "Are you sure you want to install %s ?"
+msgstr ""
+
+#: views/listApps.html.php:68
+#, php-format
+msgid "Are you sure you want to uninstall %s ?"
+msgstr ""
+
+#: views/homepage.html.php:38
+msgid "Quick access"
+msgstr ""
+
+#: views/homepage.html.php:42
+msgid "Public site"
+msgstr ""
+
+#: views/homepage.html.php:52
+msgid "Administration"
+msgstr ""
+
+#: views/homepage.html.php:57
+msgid "You should fix your DNS configuration."
+msgstr ""
+
+#: views/homepage.html.php:63
+msgid "Certification"
+msgstr ""
+
+#: views/homepage.html.php:64
+msgid "To avoid untrusted security certificate warnings, you have to import certificate authority into your browser."
+msgstr ""
+
+#: views/listDomains.html.php:34
+msgid "New domain name"
+msgstr ""
+
+#: views/listDomains.html.php:40
+msgid "Main domain"
+msgstr ""
+
+#: views/listDomains.html.php:49
+msgid "Add a domain"
+msgstr ""
+
+#: views/chat.html.php:25 views/chat.html.php:33
+msgid "Statut"
+msgstr ""
+
+#: views/chat.html.php:25
+msgid "Stopped"
+msgstr ""
+
+#: views/chat.html.php:27
+msgid "Do you want to enable the support chat ?"
+msgstr ""
+
+#: views/chat.html.php:29
+msgid "Enable chat"
+msgstr ""
+
+#: views/chat.html.php:30
+msgid "Enable"
+msgstr ""
+
+#: views/chat.html.php:33
+msgid "Running"
+msgstr ""
+
+#: views/chat.html.php:35
+msgid "Do you want to disable the support chat ?"
+msgstr ""
+
+#: views/chat.html.php:37
+msgid "Disable chat"
+msgstr ""
+
+#: views/chat.html.php:38
+msgid "Disable"
+msgstr ""
+
+#: config/config.php:101
+msgid "admin OR username / password"
+msgstr ""
+
+#: config/config.php:104
+msgid "You must identify yourself to access to this page."
+msgstr ""
+
+#: config/config.php:144
+msgid "Please add a new user to complete setup."
+msgstr ""

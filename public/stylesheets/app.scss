@@ -1,0 +1,170 @@
+@import "yunohost";
+
+/* YunoSite specific */
+
+@media screen and (min-width: 980px) {
+    html {
+        border: 3px solid $black;
+    }
+}
+body {
+    background-color: $lightGrey;
+    font-size: 18px;
+}
+
+.loader {
+    height: 200px;
+    width: 100%;
+    background: transparent url('/ynh-admin/public/images/ajax-loader.gif') no-repeat center;
+}
+
+.add-btn-container {
+    margin: 0 60px 0 35px;
+}
+
+#addButton {
+    padding: 20px 15px;
+    font-size: 17px;
+    div {
+        font-size: 100px; 
+        line-height: 80px; 
+        height: 80px; 
+        width: 80px;
+    }
+}
+
+.pagination {
+    margin: 30px 0 0;
+    font-size: 20px;
+    line-height: 25px;
+    li a {
+       color: $black;
+       font-weight: 700;
+       margin: 0 3px 0 3px;
+       &:hover, &:focus {
+            border: 3px solid $black;
+            background-color: white;
+            margin: -3px 0 -3px 0;
+        }
+    }
+    li.arrow.unavailable a {
+        color: $grey;
+    }
+    li.current a {
+        margin: -3px 0 -3px 0;
+        background-color: $red;
+        color: $black;
+        &:hover, &:focus {
+            background-color: white;
+        }
+    }
+}
+
+@media screen and (max-width: 820px) {
+    #addForm {
+        width: 90%;
+        margin-left: -45%;
+    }
+}
+
+@media screen and (max-width: 980px) {
+    .large-9.list {
+        width: 100%;
+    }
+    #poc {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+}
+
+#container {
+    padding-top: 20px ;
+}
+
+
+.tool-bar {
+    ul.right {
+        li {
+            a.chat-button {
+                display: block;
+                height: 32px;
+                width: 32px;
+                background: transparent url('/ynh-admin/public/images/chat.png') no-repeat center;
+                &:hover {
+                    background: transparent url('/ynh-admin/public/images/chat_hover.png') no-repeat center;
+                }
+            }
+            a.logout-button {
+                display: block;
+                height: 32px;
+                width: 32px;
+                background: transparent url('/ynh-admin/public/images/logout.png') no-repeat center;
+                &:hover {
+                    background: transparent url('/ynh-admin/public/images/logout_hover.png') no-repeat center;
+                }
+            }
+        }
+    }
+}
+
+.section-bar {
+    a.users-tab { background: transparent url('/ynh-admin/public/images/users.png') no-repeat center left; }
+    li.active > a.users-tab, a.users-tab:hover { background-image: url('/ynh-admin/public/images/users_hover.png'); }
+    a.domains-tab { background: transparent url('/ynh-admin/public/images/domains.png') no-repeat center left; }
+    li.active > a.domains-tab, a.domains-tab:hover { background-image: url('/ynh-admin/public/images/domains_hover.png'); }
+    a.monitor-tab { background: transparent url('/ynh-admin/public/images/monitor.png') no-repeat center left; }
+    li.active > a.monitor-tab, a.monitor-tab:hover { background-image: url('/ynh-admin/public/images/monitor_hover.png'); }
+    a.apps-tab { background: transparent url('/ynh-admin/public/images/apps.png') no-repeat center left; }
+    li.active > a.apps-tab, a.apps-tab:hover { background-image: url('/ynh-admin/public/images/apps_hover.png'); }
+}
+
+
+.grid-list {
+    padding-top: 20px;
+    li {
+        padding: 0 10px;
+        width: 45%;
+        div.user-container {
+            height: 100%;
+            a {
+                width: 100%;
+                div.user-infos {
+                    margin: 13px 0 0 20px;
+                    div {
+                        margin: 5px 0 9px;
+                        @media screen and (min-width: 820px) {
+                            max-width: 175px;
+                            max-height: 22px;
+                            overflow: hidden;
+                        }
+                        span.user-username {
+                            font-weight: 700;
+                        }
+                        span.user-fullname {
+                            font-size: 80%;
+                        }
+                    }
+                    span.user-mail {
+
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: 820px) {
+            display: block;
+            width: 98%;
+            margin: 0 20px;
+        }
+    }
+}
+
+.info-list {
+    div {
+        padding-top: 5px;
+    }
+    div.mail-list a:not(:last-of-type):after {
+        content: ", ";
+        color: $black;
+    }
+}
