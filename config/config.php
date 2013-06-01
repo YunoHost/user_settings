@@ -104,7 +104,7 @@ function before($route)
     /**
      * Extract category from URI
      */
-    $uri = $_SERVER['REQUEST_URI'];
+    $uri = substr($_SERVER['REQUEST_URI'], 9);
     if (substr_count($uri, '/') > 1) { // more than a '/' in uri
       if (strlen(substr($uri, 1, strpos($uri, '/', 1) - 1)) == 2) { // uri contains i18n param
         $uri = substr($uri, 3);
@@ -120,13 +120,11 @@ function before($route)
   /**
    * Check authentcation
    */
-  if (isset($_SERVER['PHP_AUTH_USER'])) {
-    if ($ldap->connect(array('uid' => $_SERVER['PHP_AUTH_USER'], 'ou' => 'users'), $_SERVER['PHP_AUTH_PW'])) {
-      continueRouting($route);
-    } else {
-     echo $_SERVER['PHP_AUTH_USER'].' '.$_SERVER['PHP_AUTH_PW']; die;
-    }
-  } else die('yayaya');
+  if ($ldap->connect(array('uid' => $_SERVER['PHP_AUTH_USER'], 'ou' => 'users'), $_SERVER['PHP_AUTH_PW'])) {
+    continueRouting($route);
+  } else {
+    die('LDAP Error');
+  }
 }
 
 
