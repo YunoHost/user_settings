@@ -30,11 +30,7 @@ function configure()
   option('env', ENV_PRODUCTION);
   option('debug', false);
   option('base_uri', '/ynh-user/');
-  //option('controllers_dir', dirname(__FILE__).'/controllers');
-  //option('views_dir', dirname(__FILE__).'/views');
-  define('MODELS_DIR', dirname(__FILE__).'/../models');
-  layout("layout.html.php");
-  //option('public_dir', dirname(__FILE__).'/../../public');
+  layout('layout.html.php');
   define('PUBLIC_DIR', '/public');
 }
 
@@ -66,7 +62,6 @@ function before($route)
   }
 
   $ldap = new LdapEntry('localhost', $_SESSION['domain'], dirname(__FILE__).'/../models');
-
 
   /**
    * Locale
