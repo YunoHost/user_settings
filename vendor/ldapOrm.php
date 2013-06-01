@@ -71,8 +71,10 @@ class LdapConnection
    */
   public function connect($userDnArray, $password) 
   {
-    if ( $this->connection )
+    if ( $this->connection ) {
+      die($this->arrayToDn($userDnArray).$this->baseDn.' '.$password);
       return ldap_bind( $this->connection, $this->arrayToDn($userDnArray).$this->baseDn, $password);
+    }
   }
 
   /**
