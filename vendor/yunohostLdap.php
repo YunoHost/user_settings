@@ -1,4 +1,4 @@
-<?php 
+<?php
 
  /**
   *  YunoHost - Self-hosting for all
@@ -20,177 +20,18 @@
 
 class YunoHostLdap extends LdapEntry
 {
-	public function __construct($server, $domain, $modelPath) 
+	public function __construct($server, $domain, $modelPath)
 	{
 		parent::__construct($server, $domain, $modelPath);
 	}
 
-	public function installBackground() 
-	{
-
-    $sudo = array
-		(
-			'objectClass'		=> array('organizationalUnit', 'top'),
-			'ou' 						=> 'sudo',
-			'newDn'					=> array('ou' => 'sudo')
-		);
-
-		$sudoAdmin = array
-		(
-			'objectClass'		=> array('sudoRole', 'top'),
-			'sudoHost' 			=> 'ALL',
-			'sudoCommand' 	=> 'ALL',
-			'sudoOption' 		=> '!authenticate',
-			'cn' 						=> 'admin',
-			'sudoUser' 			=> 'admin',
-			'newDn'					=> array('cn' => 'admin', 'ou' => 'sudo')
-		);
-
-		$sudoWWW = array
-		(
-			'objectClass'		=> array('sudoRole', 'top'),
-			'sudoHost' 			=> 'ALL',
-			'sudoCommand' 	=> '/usr/bin/yunohost',
-			'sudoOption' 		=> '!authenticate',
-			'cn' 						=> 'www-data',
-			'sudoUser' 			=> 'www-data',
-			'newDn'					=> array('cn' => 'www-data', 'ou' => 'sudo')
-		);
-
-		$domain = array
-		(
-			'objectClass'		=> array('organizationalUnit', 'top'),
-			'ou' 						=> 'domains',
-			'newDn'					=> array('ou' => 'domains')
-		);
-
-		$virtualdomain = array
-		(
-			'objectClass'		=> array('mailDomain', 'top'),
-			'virtualdomain' => $this->baseDomain,
-			'newDn'					=> array('virtualdomain' => $this->baseDomain, 'ou' => 'domains')
-		);
-
-		$groups = array
-		(
-			'objectClass'		=> array('organizationalUnit', 'top'),
-			'ou' 						=> 'groups',
-			'newDn'					=> array('ou' => 'groups')
-		);
-
-		$users = array
-		(
-			'objectClass'		=> array('organizationalUnit', 'top'),
-			'ou' 						=> 'users',
-			'newDn'					=> array('ou' => 'users')
-		);
-
-		$admins = array
-		(
-			'objectClass'		=> array('groupOfNames', 'top'),
-			'cn' 						=> 'admin',
-			'member'				=> 'cn=admin,'.$this->baseDn,
-			'newDn'					=> array('cn' => 'admin', 'ou' => 'groups')
-		);
-
-		$apps = array
-		(
-			'objectClass'		=> array('groupOfNames', 'top'),
-			'cn' 						=> 'apps',
-			'member'				=> 'cn=roundcube',
-			'newDn'					=> array('cn' => 'apps', 'ou' => 'groups')
-		);
-
-
-		$this->create($sudo);
-		$this->create($sudoAdmin);
-		$this->create($sudoWWW);
-		$this->create($domain);
-		$this->create($virtualdomain);
-		$this->create($groups);
-		$this->create($users);
-		$this->create($admins);
-		$this->create($apps);
-
-		$admin = array
-		(
-			'objectClass'		=> array('organizationalRole', 'posixAccount', 'simpleSecurityObject'),
-			'cn' 						=> 'admin',
-			'description' 	=> 'LDAP administrator',
-			'gidNumber' 		=> 1007,
-			'homeDirectory' => '/home/admin',
-			'loginShell' 		=> '/bin/bash',
-			'uid'						=> 'admin',
-			'uidNumber'			=> 1007
-		);
-
-		ldap_mod_replace($this->connection, $this->arrayToDn(array('cn' => 'admin')).$this->baseDn, $admin);
-
-		$_SESSION['first-install'] = true;
-
-		redirect_to('/');
-	}
-
-	public function backgroundInstalled() 
-	{
-		if ($this->connection) return $this->findOneBy(array('ou' => 'users')); //TODO: check others
-	}
-
-	public function connectAs($uid, $password, $connectAsAdmin = false)
+	public function connectAs($uid, $password)
 	{
 		$this->searchPath = array('ou' => 'users');
-		$this->attributesToFetch = array('cn');
+		$this->attributesToFetch = array('uid');
 		$result = $this->findOneBy(array('uid' => $uid));
-		$userDnArray = array('cn' => $result['cn'], 'ou' => 'users');
-		if ($connectAsAdmin) {	
-			if ($this->connect($userDnArray, $password)) {
-				$this->populateAdmin(array('cn' => 'admin'));
-		        $members = $this->getAdminMember();
-		        
-		        foreach ($members as $member)
-		        {
-		        	if ($member == $this->arrayToDn($userDnArray).$this->baseDn)
-		        		return true;
-		       	}
-		       	return false;
-		    } else return false;
-	    } else return $this->connect($userDnArray, $password);
-	}
-
-	public function grantAdmin($uid) {
-		if ($this->user->description === 'admin')
-        {
-            $this->populateAdmin(array('cn' => 'admin'));
-            $members = $this->getAdminMember();
-            if (!is_array($members))
-                $members = array($members);
-
-            $newMember = 'cn='.$this->user->cn.',ou=users,'.$this->baseDn;
-
-            foreach ($members as $member)
-            	if ($member === $newMember) return false;
-
-            $members[] = $newMember;
-
-            $this->setAdminMember($members);
-            $this->saveAdmin();
-        }
-	}
-
-	public function revokeAdmin($uid) {
-            $this->populateAdmin(array('cn' => 'admin'));
-            $members = $this->getAdminMember();
-
-            if (!is_array($members))
-                return false;
-
-            $revokeMember = 'cn='.$this->user->cn.',ou=users,'.$this->baseDn;
-
-            foreach ($members as $key => $member)
-            	if ($member === $revokeMember) unset($members[$key]);
-
-            $this->setAdminMember($members);
-            $this->saveAdmin();
+		$userDnArray = array('uid' => $result['uid'], 'ou' => 'users');
+	    return $this->connect($userDnArray, $password);
 	}
 
 	protected function ldapError() {

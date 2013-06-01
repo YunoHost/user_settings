@@ -1,4 +1,4 @@
-<?php 
+<?php
 
  /**
   *  YunoHost - Self-hosting for all
@@ -17,9 +17,9 @@
   *  You should have received a copy of the GNU Affero General Public License
   *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
-  
+
 require dirname(__FILE__).'/vendor/limonade.php';
-require dirname(__FILE__).'/config/routes.php'; 
+require dirname(__FILE__).'/config/routes.php';
 require dirname(__FILE__).'/vendor/ldapOrm.php';
 require dirname(__FILE__).'/vendor/yunohostLdap.php';
 require dirname(__FILE__).'/vendor/unix_func.php';
