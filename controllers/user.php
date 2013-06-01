@@ -145,6 +145,8 @@ function updatePasswordUser ($uid = null) {
 
   $actualPassword = '{MD5}'.base64_encode(pack('H*',md5($_POST["actualPassword"])));
   $newPassword = '{MD5}'.base64_encode(pack('H*',md5($_POST["newPassword"])));
+  $salt = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',4)),0,4);
+  $newPassword = '{SSHA}'.base64_encode(sha1( $_POST["newPassword"].$salt, true ).$salt);
 
   $ldap->populateUser(array('uid' => $uid));
 
