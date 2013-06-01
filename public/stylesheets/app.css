@@ -4670,7 +4670,7 @@ body {
 .loader {
   height: 200px;
   width: 100%;
-  background: transparent url("/ynh-admin/public/images/ajax-loader.gif") no-repeat center; }
+  background: transparent url("/ynh-user/public/images/ajax-loader.gif") no-repeat center; }
 
 .add-btn-container {
   margin: 0 60px 0 35px; }
@@ -4724,33 +4724,33 @@ body {
   display: block;
   height: 32px;
   width: 32px;
-  background: transparent url("/ynh-admin/public/images/chat.png") no-repeat center; }
+  background: transparent url("/ynh-user/public/images/chat.png") no-repeat center; }
   .tool-bar ul.right li a.chat-button:hover {
-    background: transparent url("/ynh-admin/public/images/chat_hover.png") no-repeat center; }
+    background: transparent url("/ynh-user/public/images/chat_hover.png") no-repeat center; }
 .tool-bar ul.right li a.logout-button {
   display: block;
   height: 32px;
   width: 32px;
-  background: transparent url("/ynh-admin/public/images/logout.png") no-repeat center; }
+  background: transparent url("/ynh-user/public/images/logout.png") no-repeat center; }
   .tool-bar ul.right li a.logout-button:hover {
-    background: transparent url("/ynh-admin/public/images/logout_hover.png") no-repeat center; }
+    background: transparent url("/ynh-user/public/images/logout_hover.png") no-repeat center; }
 
 .section-bar a.users-tab {
-  background: transparent url("/ynh-admin/public/images/users.png") no-repeat center left; }
+  background: transparent url("/ynh-user/public/images/users.png") no-repeat center left; }
 .section-bar li.active > a.users-tab, .section-bar a.users-tab:hover {
-  background-image: url("/ynh-admin/public/images/users_hover.png"); }
+  background-image: url("/ynh-user/public/images/users_hover.png"); }
 .section-bar a.domains-tab {
-  background: transparent url("/ynh-admin/public/images/domains.png") no-repeat center left; }
+  background: transparent url("/ynh-user/public/images/domains.png") no-repeat center left; }
 .section-bar li.active > a.domains-tab, .section-bar a.domains-tab:hover {
-  background-image: url("/ynh-admin/public/images/domains_hover.png"); }
+  background-image: url("/ynh-user/public/images/domains_hover.png"); }
 .section-bar a.monitor-tab {
-  background: transparent url("/ynh-admin/public/images/monitor.png") no-repeat center left; }
+  background: transparent url("/ynh-user/public/images/monitor.png") no-repeat center left; }
 .section-bar li.active > a.monitor-tab, .section-bar a.monitor-tab:hover {
-  background-image: url("/ynh-admin/public/images/monitor_hover.png"); }
+  background-image: url("/ynh-user/public/images/monitor_hover.png"); }
 .section-bar a.apps-tab {
-  background: transparent url("/ynh-admin/public/images/apps.png") no-repeat center left; }
+  background: transparent url("/ynh-user/public/images/apps.png") no-repeat center left; }
 .section-bar li.active > a.apps-tab, .section-bar a.apps-tab:hover {
-  background-image: url("/ynh-admin/public/images/apps_hover.png"); }
+  background-image: url("/ynh-user/public/images/apps_hover.png"); }
 
 .grid-list {
   padding-top: 20px; }
