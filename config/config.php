@@ -31,7 +31,7 @@ function configure()
   option('debug', false);
   option('base_uri', '/ynh-user/');
   layout('layout.html.php');
-  define('PUBLIC_DIR', '/public');
+  define('PUBLIC_DIR', '/ynh-user/public');
 }
 
 /**
