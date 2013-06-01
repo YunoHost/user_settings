@@ -22,7 +22,6 @@ require dirname(__FILE__).'/vendor/limonade.php';
 require dirname(__FILE__).'/config/routes.php';
 require dirname(__FILE__).'/vendor/ldapOrm.php';
 require '/usr/share/php/php-gettext/gettext.inc';
-
 require dirname(__FILE__).'/config/config.php';
 
 run();
