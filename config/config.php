@@ -125,7 +125,7 @@ function before($route)
     if ($ldap->connectAs($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true)) {
       continueRouting($route);
     } else {
-      echo 'yayaya'; die;
+      echo 'yoyoyo'; die;
     }
   } else die('yayaya');
 }
