@@ -27,10 +27,7 @@ class YunoHostLdap extends LdapEntry
 
 	public function connectAs($uid, $password)
 	{
-		$this->searchPath = array('ou' => 'users');
-		$this->attributesToFetch = array('uid');
-		$result = $this->findOneBy(array('uid' => $uid));
-		$userDnArray = array('uid' => $result['uid'], 'ou' => 'users');
+		$userDnArray = array('uid' => $uid, 'ou' => 'users');
 	    return $this->connect($userDnArray, $password);
 	}
 
